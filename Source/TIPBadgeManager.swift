@@ -34,23 +34,23 @@ public class TIPBadgeManager {
     
     public func setAllBadgeValues(value : Int, appIconBadge: Bool){
         for (key, _) in tipBadgeObjDict {
-            if !isTIPViewObjNil(tipBadgeObjDict[key]!) || !isTIPTabBarItemObjNil(tipBadgeObjDict[key]!){
-                setBadgeValue(key, value: value)
+            if !isTIPViewObjNil(tipBadgeObject: tipBadgeObjDict[key]!) || !isTIPTabBarItemObjNil(tipBadgeObject: tipBadgeObjDict[key]!){
+                setBadgeValue(key: key, value: value)
             }
         }
         
         if appIconBadge {
-            setAppIconBadgeValue(value)
+            setAppIconBadgeValue(value: value)
         }
     }
     
     func setAppIconBadgeValue(value : Int) {
-        UIApplication.sharedApplication().applicationIconBadgeNumber = value
+        UIApplication.shared.applicationIconBadgeNumber = value
     }
     
     public func getBadgeValue(key : String) -> Int? {
         if tipBadgeObjDict[key] != nil {
-            if !isTIPViewObjNil(tipBadgeObjDict[key]!) || !isTIPTabBarItemObjNil(tipBadgeObjDict[key]!){
+            if !isTIPViewObjNil(tipBadgeObject: tipBadgeObjDict[key]!) || !isTIPTabBarItemObjNil(tipBadgeObject: tipBadgeObjDict[key]!){
                 return tipBadgeObjDict[key]!.badgeValue
             }
         }
@@ -77,19 +77,19 @@ public class TIPBadgeManager {
     
     public func clearAllBadgeValues(clearAppIconBadge: Bool){
         clearAllBadgeValues()
-        if clearAppIconBadge { setAppIconBadgeValue(0) }
+        if clearAppIconBadge { setAppIconBadgeValue(value: 0) }
     }
     
     func clearAllBadgeValues(){
         for (key, _) in tipBadgeObjDict {
-            setBadgeValue(key, value: 0)
+            setBadgeValue(key: key, value: 0)
         }
     }
     
     
     public func removeBadgeObjFromDict(keys : [String]) {
         for key in keys {
-            tipBadgeObjDict.removeValueForKey(key)
+            tipBadgeObjDict.removeValue(forKey: key)
         }
     }
     
@@ -97,10 +97,10 @@ public class TIPBadgeManager {
     public func cleanBadgeObjectDict(){
         for (key, value) in tipBadgeObjDict {
             if let _ = value as? TIPViewObject {
-                cleanTipViewObject(key)
+                cleanTipViewObject(key: key)
             }
             if let _ = value as? TIPTabBarItemObject {
-                cleanTipTabBarItemObject(key)
+                cleanTipTabBarItemObject(key: key)
             }
         }
     }
@@ -108,14 +108,14 @@ public class TIPBadgeManager {
     func cleanTipViewObject(key : String){
         let tipViewObj : TIPViewObject = tipBadgeObjDict[key] as! TIPViewObject
         if tipViewObj.view == nil {
-            removeBadgeObjFromDict([key])
+            removeBadgeObjFromDict(keys: [key])
         }
     }
     
     func cleanTipTabBarItemObject(key : String){
         let tipTabBarItemObj : TIPTabBarItemObject = tipBadgeObjDict[key] as! TIPTabBarItemObject
         if tipTabBarItemObj.tabBar == nil {
-            removeBadgeObjFromDict([key])
+            removeBadgeObjFromDict(keys: [key])
         }
     }
     

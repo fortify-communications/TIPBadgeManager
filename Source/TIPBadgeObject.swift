@@ -18,7 +18,7 @@ public class TIPViewObject: NSObject, TIPBadgeObject{
     public var observerTriggered: Bool = false
     public var badgeValue: Int = 0 {
         willSet(newVal){
-            changeBadgeValue(newVal)
+            changeBadgeValue(value: newVal)
         }
     }
     
@@ -36,13 +36,13 @@ public class TIPViewObject: NSObject, TIPBadgeObject{
         
        bv!.translatesAutoresizingMaskIntoConstraints = false
         
-        let badgeHeightConstraint = NSLayoutConstraint(item: bv!, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.0, constant: 18.0)
+        let badgeHeightConstraint = NSLayoutConstraint(item: bv!, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.height, multiplier: 1.0, constant: 18.0)
         
         bv!.addConstraints([badgeHeightConstraint])
         
-        let rightConstraint = NSLayoutConstraint(item: self.view!, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: bv!, attribute: NSLayoutAttribute.Left, multiplier: 1.0, constant: 7.0)
+        let rightConstraint = NSLayoutConstraint(item: self.view!, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: bv!, attribute: NSLayoutAttribute.left, multiplier: 1.0, constant: 7.0)
         
-        let topConstraint = NSLayoutConstraint(item: self.view!, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: bv!, attribute: NSLayoutAttribute.Top, multiplier: 1.0, constant: 5.0)
+        let topConstraint = NSLayoutConstraint(item: self.view!, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: bv!, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 5.0)
         
         self.view!.addConstraints([rightConstraint, topConstraint])
         
@@ -54,7 +54,7 @@ public class TIPViewObject: NSObject, TIPBadgeObject{
             if self.badgeView == nil {
                 addBadge()
             }
-            self.badgeView!.setBadgeValue(value)
+            self.badgeView!.setBadgeValue(val: value)
         } else {
             clearBadge()
         }
@@ -75,7 +75,7 @@ public class TIPTabBarItemObject: NSObject, TIPBadgeObject {
     
     public var badgeValue: Int = 0 {
         willSet(newVal){
-            changeBadgeValue(newVal)
+            changeBadgeValue(value: newVal)
         }
     }
     
